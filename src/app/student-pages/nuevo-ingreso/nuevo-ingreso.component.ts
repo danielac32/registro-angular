@@ -50,7 +50,7 @@ export class NuevoIngresoComponent implements OnInit {
 newForm: FormGroup<NewForm>;
 showSecondSection = false;
 countFrame = 0;
-Materias: string[] = ['Fisica', 'Quimica', 'Matematica'];
+Materias: string[] = ['Fisica', 'Quimica', 'Matematica','Ingles','Castellano','Historia'];
 
 
 constructor(private estudianteService:EstudianteService) {
@@ -107,8 +107,8 @@ ngOnInit(): void {
       plantelOrigen: plantelOrigen ?? 'Not provided',
       repitiente: repitiente as boolean,
       curso: Number(curso),
-      materiasAprobadas: materiasAprobadas,
-      materiasAplazadas: materiasAplazadas,
+      materiasAprobadas: materiasAprobadas ?? [],
+      materiasAplazadas: materiasAplazadas ?? [],
       pruebaVocacional: pruebaVocacional as boolean,
       tipoEstudiante: 'Nuevo ingreso'
     }

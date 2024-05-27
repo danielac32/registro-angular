@@ -39,8 +39,8 @@ export interface Academico{
   plantelOrigen?: string;
   repitiente?: boolean; 
   curso?: number; 
-  materiasAprobadas: string[];
-  materiasAplazadas: string[];
+  materiasAprobadas?: string[];
+  materiasAplazadas?: string[];
   pruebaVocacional?: boolean; 
   tipoEstudiante?: string;
 }
