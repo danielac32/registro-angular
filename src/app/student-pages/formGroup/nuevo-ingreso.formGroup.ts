@@ -3,10 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class NewForm {
   nombre = new FormControl('', [Validators.required]);
   correo= new FormControl('', [ Validators.email]);
-  cedula = new FormControl('', [Validators.required,Validators.minLength(10)]);
+  cedula = new FormControl('', [Validators.required,Validators.min(10)]);
   //plantelOrigen = new FormControl('', [Validators.required]);
   direccion = new FormControl('', [Validators.required]);
-  telefono = new FormControl('', [Validators.minLength(12)]);
+  telefono = new FormControl(''/*, [Validators.minLength(12)]*/);
   medicina = new FormControl(false,[Validators.required]);
   alergia = new FormControl(false,[Validators.required]);
   //
@@ -14,17 +14,17 @@ export class NewForm {
   madre = new FormControl('');
   correoM= new FormControl('', [Validators.email]);
   cedulaM = new FormControl('');
-  telefonoM = new FormControl('', [Validators.minLength(12)]);
+  telefonoM = new FormControl(''/*, [Validators.minLength(12)]*/);
   profesionM = new FormControl('');
   viveM = new FormControl(false);
 
   padre = new FormControl('');
   correoP= new FormControl('', [ Validators.email]);
   cedulaP = new FormControl('');
-  telefonoP = new FormControl('', [Validators.minLength(12)]);
+  telefonoP = new FormControl(''/*, [Validators.minLength(12)]*/);
   profesionP = new FormControl('');
   viveP = new FormControl(false);
-  numEmergencia = new FormControl('', [Validators.minLength(12)]);
+  numEmergencia = new FormControl(''/*, [Validators.minLength(12)]*/);
   parentesco = new FormControl('');
   nombreRepresentante = new FormControl('', [Validators.required]);
 

@@ -22,7 +22,10 @@
 
 		     <mat-form-field>
 		     <mat-label>Cedula</mat-label>
-		     <input matInput type="text" formControlName="cedula" required>
+		     <input matInput type="number" formControlName="cedula" required>
+		     @if(newForm.get('cedula')?.hasError('min')){
+	          	<mat-error>Cedula menor a 10 numeros</mat-error>
+	         }
 	         </mat-form-field>
 
 		     <mat-form-field>
@@ -32,7 +35,7 @@
 
 		     <mat-form-field>
 		     <mat-label>Telefono</mat-label>
-		     <input matInput type="text" formControlName="telefono" >
+		     <input matInput type="number" formControlName="telefono" >
 		     </mat-form-field>
 		     <mat-checkbox formControlName="medicina">Medicina?</mat-checkbox>
 		     <mat-checkbox formControlName="alergia">Alergia?</mat-checkbox>
@@ -60,7 +63,7 @@
 
 		     <mat-form-field>
 		     <mat-label>Telefono</mat-label>
-		     <input matInput type="text" formControlName="cedula" >
+		     <input matInput type="number" formControlName="cedula" >
 	         </mat-form-field>
 
 		     <mat-form-field>
@@ -93,7 +96,7 @@
 
 		     <mat-form-field>
 		     <mat-label>Telefono</mat-label>
-		     <input matInput type="text" formControlName="cedula" >
+		     <input matInput type="number" formControlName="cedula" >
 	         </mat-form-field>
 
 		     <mat-form-field>
@@ -118,7 +121,7 @@
          <mat-card>
          	<mat-form-field>
 	         <mat-label>Numero de emergencia</mat-label>
-		     <input matInput type="text" formControlName="numEmergencia" >
+		     <input matInput type="number" formControlName="numEmergencia" >
 		     </mat-form-field>
 
 		     <mat-form-field>

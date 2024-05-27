@@ -49,3 +49,13 @@ perfilEstudiante:Perfil;
 representante:Representante;
 academico:Academico
 }
+
+export interface EstudianteEntityInterface {
+  id: number;
+  id_perfil: number;
+  id_representante: number;
+  createdAt: string;
+}
+export interface EstudianteResponse{
+ estudiante:EstudianteEntityInterface;
+}

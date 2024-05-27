@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development'
 import {Perfil,
-  Representante,
-  Academico,
-  CrearEstudiante } from '../interface/estudiante.interface'
+        Representante,
+        Academico,
+        CrearEstudiante,
+        EstudianteResponse } from '../interface/estudiante.interface'
 
 
 @Injectable({
@@ -16,10 +17,13 @@ export class EstudianteService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(estudiante:Academico):Observable<any>{
-    return this.httpClient.post<any>(`${ this.baseUrl }/estudiante/`, {
+  create(estudiante:CrearEstudiante):Observable<EstudianteResponse>{
+        return this.httpClient.post<EstudianteResponse>(`${ this.baseUrl }/estudiante/`, {
           ...estudiante
         });
   }
 
+  findOne(id: string,perfil:boolean,academico:boolean,representante:boolean):Observable<any>{
+    return this.httpClient.get<any>(`${ this.baseUrl }/estudiante/${ id }?p=${perfil}&a=${academico}&r=${representante}`)
+  }
 }

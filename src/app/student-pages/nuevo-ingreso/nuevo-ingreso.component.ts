@@ -9,13 +9,13 @@ import { MatCardModule } from '@angular/material/card'; // Import MatCardModule
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {CdkTextareaAutosize, TextFieldModule} from '@angular/cdk/text-field';
 import {MatSelectModule} from '@angular/material/select';
- 
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {EstudianteService} from '../service/estudiante.service'
-import {NewForm} from '../formGroup/nuevo-ingreso.fromGroup'
+import {NewForm} from '../formGroup/nuevo-ingreso.formGroup'
 import {
   Perfil,
   Representante,
@@ -41,7 +41,7 @@ import {
       TextFieldModule,
       MatDatepickerModule,
       MatListModule,
-      MatProgressBarModule
+      MatProgressBarModule,
   ],
   templateUrl: './nuevo-ingreso.component.html',
   styleUrl: './nuevo-ingreso.component.css'
@@ -53,58 +53,68 @@ countFrame = 0;
 Materias: string[] = ['Fisica', 'Quimica', 'Matematica','Ingles','Castellano','Historia'];
 
 
-constructor(private estudianteService:EstudianteService) {
+constructor(private _snackBar: MatSnackBar,private estudianteService:EstudianteService) {
     this.newForm = new FormGroup<NewForm>(new NewForm());
   }
 
 
-ngOnInit(): void {
+  ngOnInit(): void {
 
   }
 
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000, // Duración en milisegundos
+      verticalPosition: 'top', // Posición vertical de la alerta
+      horizontalPosition: 'end', // Posición horizontal de la alerta
+      panelClass: ['green']
+    });
+  }
+
 
   onSubmit() {
-
+  if(!this.newForm.valid){
+      this.openSnackBar("Error ingresando alumno", 'Cerrar');
+      return;
+  } 
   const { nombre,correo,cedula,direccion,telefono,medicina,alergia,...rest} = this.newForm.value;
   const { madre,correoM,cedulaM,telefonoM,profesionM,viveM,padre,correoP,cedulaP,telefonoP,profesionP,viveP,numEmergencia,parentesco,nombreRepresentante,...ultimo}=rest;
   const { fechaDesde,fechaHasta,plantelOrigen,repitiente,curso,pruebaVocacional,materiasAprobadas,materiasAplazadas} = ultimo;
     
 
     const perfil : Perfil={
-        name: nombre ?? 'Not provided',
-        email: correo ?? 'Not provided',
-        cedula: cedula ?? 'Not provided',
-        //origen: plantelOrigen ?? 'Not provided',
-        direccion: direccion ?? 'Not provided',
-        telefono:telefono ?? 'Not provided',
+        name: nombre ?? '',
+        email: correo ?? '',
+        cedula: cedula?.toString() ?? '',
+        //origen: plantelOrigen ?? '',
+        direccion: direccion ?? '',
+        telefono:telefono ?? '',
         medicina: medicina as boolean,
         alergia: alergia as boolean
     }
     const representante : Representante={
-        madre: madre ?? 'Not provided',
-        cedulaM: cedulaM ?? 'Not provided',
-        telefonoM: telefonoM ?? 'Not provided',
-        emailM: correoM ?? 'Not provided',
-        profesionM: profesionM ?? 'Not provided',
+        madre: madre ?? '',
+        cedulaM: cedulaM ?? '',
+        telefonoM: telefonoM ?? '',
+        emailM: correoM ?? '',
+        profesionM: profesionM ?? '',
         viveConEstuanteM: viveM as boolean,
-        padre: padre ?? 'Not provided',
-        cedulaP: cedulaP ?? 'Not provided',
-        telefonoP: telefonoP ?? 'Not provided',
-        emailP: correoP ?? 'Not provided',
-        profesionP: profesionP ?? 'Not provided',
+        padre: padre ?? '',
+        cedulaP: cedulaP ?? '',
+        telefonoP: telefonoP ?? '',
+        emailP: correoP ?? '',
+        profesionP: profesionP ?? '',
         viveConEstuanteP: viveP as boolean,
-        numEmergencia: numEmergencia ?? 'Not provided',
-        parentesco: parentesco ?? 'Not provided',
-        nombreRepresentante: nombreRepresentante ?? 'Not provided'
+        numEmergencia: numEmergencia ?? '',
+        parentesco: parentesco ?? '',
+        nombreRepresentante: nombreRepresentante ?? ''
     }
  
-
     const academico : Academico={
-
-      fechaEscolarDesde: fechaDesde ?? 'Not provided',
-      fechaEscolarHasta: fechaHasta ?? 'Not provided',
-      plantelOrigen: plantelOrigen ?? 'Not provided',
+      fechaEscolarDesde: fechaDesde ?? '',
+      fechaEscolarHasta: fechaHasta ?? '',
+      plantelOrigen: plantelOrigen ?? '',
       repitiente: repitiente as boolean,
       curso: Number(curso),
       materiasAprobadas: materiasAprobadas ?? [],
@@ -112,21 +122,18 @@ ngOnInit(): void {
       pruebaVocacional: pruebaVocacional as boolean,
       tipoEstudiante: 'Nuevo ingreso'
     }
+
     const estudiante:CrearEstudiante={
       perfilEstudiante:perfil,
       representante:representante,
       academico:academico
     }
-      
-    console.log(materiasAprobadas);
-    console.log(materiasAplazadas);
-
-
-    this.estudianteService.create(academico).subscribe(response => {
-       console.log("ok")
+    this.estudianteService.create(estudiante).subscribe(({estudiante}) => {
+       console.log(estudiante,"ok")
+       this.openSnackBar("Alumno ingresado", 'Cerrar');
     }, error => {
       console.error('Error en la solicitud :', error);
-      
+      this.openSnackBar("Error ingresando alumno", 'Cerrar');
     });
 
 
