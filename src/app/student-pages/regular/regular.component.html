@@ -1,0 +1,23 @@
+<div class="login-form">
+  <mat-card>
+    <mat-card-content>
+        <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+        <mat-card-title>Busqueda</mat-card-title>
+          <mat-card>
+              <mat-form-field>
+              <mat-label>Cedula</mat-label>
+                  <input matInput type="text" formControlName="cedula" required>
+              </mat-form-field>
+              <mat-checkbox formControlName="perfil">Perfil?</mat-checkbox>
+              <mat-checkbox formControlName="record">Record Academico?</mat-checkbox>
+              <mat-checkbox formControlName="representante">Representante?</mat-checkbox>
+       
+
+              <mat-card-actions class="action-container">
+                  <button mat-raised-button type="submit">Buscar</button>
+              </mat-card-actions>
+          </mat-card>
+        </form>
+    </mat-card-content>
+  </mat-card>
+</div>

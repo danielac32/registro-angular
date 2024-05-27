@@ -1,0 +1,211 @@
+<div class="login-form">
+  <mat-card>
+    
+    <mat-card-content>
+    	
+      <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+         
+
+         @if(countFrame==0){
+         	<mat-card-title>Registro de Estudiante</mat-card-title>
+         	<mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
+	         <mat-card>
+	         <mat-form-field>
+	      	 <mat-label>Nombre</mat-label>
+		     <input matInput type="text" formControlName="nombre" required>
+		     </mat-form-field>
+
+		     <mat-form-field>
+	         <mat-label>Correo</mat-label>
+		     <input matInput type="text" formControlName="correo" >
+		     </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Cedula</mat-label>
+		     <input matInput type="text" formControlName="cedula" required>
+	         </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Direccion</mat-label>
+	         <input matInput type="text" formControlName="direccion" required>
+	         </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Telefono</mat-label>
+		     <input matInput type="text" formControlName="telefono" >
+		     </mat-form-field>
+		     <mat-checkbox formControlName="medicina">Medicina?</mat-checkbox>
+		     <mat-checkbox formControlName="alergia">Alergia?</mat-checkbox>
+
+		     <mat-card-actions class="action-container">
+	         <button mat-raised-button (click)="countFrame = countFrame + 1">Siguiente</button>
+	         </mat-card-actions>
+
+	         </mat-card>
+        }
+        @else if(countFrame==1){
+ 
+         <mat-card-title>Registro de la Madre</mat-card-title>
+         <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+         <mat-card>
+         	<mat-form-field>
+	      	 <mat-label>Nombre de la madre</mat-label>
+		     <input matInput type="text" formControlName="madre" >
+		     </mat-form-field>
+
+		     <mat-form-field>
+	         <mat-label>Correo</mat-label>
+		     <input matInput type="text" formControlName="correo" >
+		     </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Telefono</mat-label>
+		     <input matInput type="text" formControlName="cedula" >
+	         </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Profesion</mat-label>
+	         <input matInput type="text" formControlName="direccion" >
+	         </mat-form-field>
+
+		     <mat-checkbox formControlName="medicina">Vive con el estudiante?</mat-checkbox>
+
+		     <mat-card-actions class="action-container">
+		     	<button mat-raised-button (click)="countFrame = countFrame - 1">atras</button>
+	         <button mat-raised-button (click)="countFrame = countFrame + 1">Siguiente</button>
+	         </mat-card-actions>
+         </mat-card>
+        }
+        @else if(countFrame==2){
+ 
+         <mat-card-title>Registro del Padre</mat-card-title>
+         <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
+         <mat-card>
+         	<mat-form-field>
+	      	 <mat-label>Nombre del padre</mat-label>
+		     <input matInput type="text" formControlName="madre" >
+		     </mat-form-field>
+
+		     <mat-form-field>
+	         <mat-label>Correo</mat-label>
+		     <input matInput type="text" formControlName="correo" >
+		     </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Telefono</mat-label>
+		     <input matInput type="text" formControlName="cedula" >
+	         </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Profesion</mat-label>
+	         <input matInput type="text" formControlName="direccion" >
+	         </mat-form-field>
+
+		     <mat-checkbox formControlName="medicina">Vive con el estudiante?</mat-checkbox>
+                 
+		     <mat-card-actions class="action-container">
+		     	<button mat-raised-button (click)="countFrame = countFrame - 1">atras</button>
+	         <button mat-raised-button (click)="countFrame = countFrame + 1">Siguiente</button>
+
+	         </mat-card-actions>
+         </mat-card>
+
+         }
+         @else if(countFrame==3){
+ 
+         <mat-card-title>Numero de emergencia</mat-card-title>
+         <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+         <mat-card>
+         	<mat-form-field>
+	         <mat-label>Numero de emergencia</mat-label>
+		     <input matInput type="text" formControlName="numEmergencia" >
+		     </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Parentesco</mat-label>
+		     <input matInput type="text" formControlName="parentesco" >
+	         </mat-form-field>
+
+		     <mat-form-field>
+		     <mat-label>Representante</mat-label>
+	         <input matInput type="text" formControlName="nombreRepresentante" required>
+	         </mat-form-field>
+	         <mat-card-actions class="action-container">
+	         <button mat-raised-button (click)="countFrame = countFrame - 1">atras</button>
+	        <button mat-raised-button (click)="countFrame = countFrame + 1">Siguiente</button>
+	        </mat-card-actions>
+         </mat-card>
+         }
+         @else if(countFrame==4){
+ 
+	         <mat-card-title>Registro Academico</mat-card-title>
+	         <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+	         <mat-card>
+          	 <mat-form-field>
+			  <mat-label>Desde</mat-label>
+			  <input matInput [matDatepicker]="picker" formControlName="fechaDesde">
+			  <mat-hint>MM/DD/YYYY</mat-hint>
+			  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+			  <mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+            
+            <mat-form-field>
+			  <mat-label>Hasta</mat-label>
+			  <input matInput [matDatepicker]="picker2" formControlName="fechaHasta">
+			  <mat-hint>MM/DD/YYYY</mat-hint>
+			  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+			  <mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+            
+            <mat-form-field>
+	         <mat-label>Plantel de Origen</mat-label>
+		     <input matInput type="text" formControlName="plantelOrigen">
+		     </mat-form-field>
+
+             <mat-checkbox formControlName="repitiente">Repitiente?</mat-checkbox>
+             @if(newForm.get('repitiente')?.value==true){
+                 
+                 <mat-form-field>
+				  <mat-label>Materias Aprobadas</mat-label>
+				  <mat-select  multiple formControlName="materiasAprobadas">
+				    @for (topping of Materias; track topping) {
+				      <mat-option [value]="topping">{{topping}}</mat-option>
+				    }
+				  </mat-select>
+				</mat-form-field>
+				<mat-form-field>
+				  <mat-label>Materias Aplazadas</mat-label>
+				  <mat-select  multiple formControlName="materiasAplazadas">
+				    @for (topping of Materias; track topping) {
+				      <mat-option [value]="topping">{{topping}}</mat-option>
+				    }
+				  </mat-select>
+				</mat-form-field>
+             }
+            <mat-form-field>
+			  <mat-label>Año escolar</mat-label>
+			  <select matNativeControl required formControlName="curso">
+			    <option value="1">Primero</option>
+			    <option value="2">Segundo</option>
+			    <option value="3">Tercero</option>
+			    <option value="4">Cuarto</option>
+			    <option value="5">Quinto</option>
+			  </select>
+			</mat-form-field>
+
+            <mat-checkbox formControlName="pruebaVocacional">Prueba Vocacional?</mat-checkbox>
+
+
+			<mat-card-actions class="action-container">
+	         <button mat-raised-button (click)="countFrame = countFrame - 1">atras</button>
+	        <button mat-raised-button type="submit">Registrar</button>
+	        </mat-card-actions>
+
+	         </mat-card>
+         }
+      </form>
+
+     
+    </mat-card-content>
+  </mat-card>
+</div>
