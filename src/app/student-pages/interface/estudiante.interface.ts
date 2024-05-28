@@ -1,5 +1,8 @@
 
 
+export interface Options{
+ n: string[];
+}
 
 export interface Perfil{
   name: string;
@@ -54,7 +57,7 @@ export interface EstudianteEntityInterface {
   id: number;
   id_perfil: number;
   id_representante: number;
-  createdAt: string;
+  createdAt?: string;
 }
 export interface EstudianteResponse{
  estudiante:EstudianteEntityInterface;

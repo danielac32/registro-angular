@@ -9,21 +9,32 @@ import { MatCardModule } from '@angular/material/card'; // Import MatCardModule
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {CdkTextareaAutosize, TextFieldModule} from '@angular/cdk/text-field';
 import {MatSelectModule} from '@angular/material/select';
- import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
 import {MatMenuModule} from '@angular/material/menu';
 import {EstudianteService} from '../service/estudiante.service'
 import {NewForm} from '../formGroup/regular.formGroup'
+import {Options} from '../interface/estudiante.interface'
+import {Utils} from '../../shared/utils/utils'
+import {ResponsePerfil,
+        ResponseAcademico,
+        ResponseRepresent,
+        ResponsePerfilRecord,
+        ResponsePerfilRepresent,
+        ResponseRecordRepresentante,
+        ResponseAll
+                          } from '../interface/response.interface'
+
+
 
 
 @Component({
   selector: 'app-regular',
   standalone: true,
-  providers: [provideNativeDateAdapter(),EstudianteService],
+  providers: [provideNativeDateAdapter(),EstudianteService,Utils],
   imports: [
       MatFormFieldModule,
       MatInputModule,
@@ -45,16 +56,17 @@ import {NewForm} from '../formGroup/regular.formGroup'
 })
 export class RegularComponent implements OnInit {
 newForm: FormGroup<NewForm>;
+frameSearch:boolean=true;
 
 
-constructor(private _snackBar: MatSnackBar,private estudianteService:EstudianteService) {
+constructor(private utils:Utils,private _snackBar: MatSnackBar,private estudianteService:EstudianteService) {
     this.newForm = new FormGroup<NewForm>(new NewForm());
 }
 
 
-ngOnInit(): void {
-
-}
+  ngOnInit(): void {
+  this.frameSearch=true;
+  }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
@@ -72,13 +84,63 @@ onSubmit() {
       this.openSnackBar("Error ingresando alumno", 'Cerrar');
       return;
     } 
-    
     let option: string[] = ['0', '0', '0'];
     const {cedula,perfil,record,representante}= this.newForm.value;
+    option = this.utils.setMode(perfil??false,record??false,representante??false);
+    //console.log(typeof perfil)
+    if (cedula != null) {
+        this.estudianteService.findOne(cedula?.toString(),option[0],option[1],option[2]).subscribe((response) => {
+           console.log(response.mode,"ok")
+           this.frameSearch=false;
+           this.viewFrame(response,this.utils.getMode(response.mode));
+           //this.openSnackBar("Alumno ingresado", 'Cerrar');
+        }, error => {
+          console.error('Error en la solicitud :', error);
+          this.openSnackBar("Error buscando alumno", 'Cerrar');
+        });
+    }
+}
+
+viewFrame(data:any,n:number){
+    //console.log("number: ",n)
+     console.log("numero: ",n,data);
+
+     if(n==1){
+        const res:ResponsePerfil=data;
+        console.log(res.response.perfil)
+     }else if(n==2){
+        const res:ResponseAcademico=data;
+        console.log(res.response.recordAcademico)
+     }else if(n==3){
+        const res:ResponseRepresent=data;
+        console.log(res.response.representante)
+     }else if(n==4){
+        const res:ResponsePerfilRecord=data;
+        console.log(res.response.perfil,res.response.recordAcademico)
+     }else if(n==5){
+        const res:ResponsePerfilRepresent=data;
+        console.log(res.response.perfil,res.response.representante)
+     }else if(n==6){
+       const res:ResponseRecordRepresentante=data;
+        console.log(res.response.recordAcademico,res.response.representante)
+     }else if(n==7){
+       const res:ResponseAll=data;
+        console.log(res.response)
+     }else if(n==8){
+        const res:ResponsePerfil=data;
+        console.log(res.response.perfil)
+     }
+}
 
 
 
-    if (perfil && !record && !representante) {
+
+
+
+}
+
+
+    /*if (perfil && !record && !representante) {
       // Solo incluye el perfil
        option[0]='1';
        option[1]='0';
@@ -118,20 +180,4 @@ onSubmit() {
        option[0]='0';
        option[1]='0';
        option[2]='0';
-    }
-    //console.log(typeof perfil)
-    if (cedula != null) {
-      this.estudianteService.findOne(cedula?.toString(),option[0],option[1],option[2]).subscribe(response => {
-         console.log(response,"ok")
-         //this.openSnackBar("Alumno ingresado", 'Cerrar');
-      }, error => {
-        console.error('Error en la solicitud :', error);
-        this.openSnackBar("Error buscando alumno", 'Cerrar');
-      });
-    }
-
-}
-
-
-
-}
+    }*/
