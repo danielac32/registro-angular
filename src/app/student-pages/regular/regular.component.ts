@@ -64,11 +64,72 @@ ngOnInit(): void {
       panelClass: ['green']
     });
   }
-
-
+ 
 
 onSubmit() {
-     console.log(this.newForm.value)
+    // console.log(this.newForm.value);
+    if(!this.newForm.valid){
+      this.openSnackBar("Error ingresando alumno", 'Cerrar');
+      return;
+    } 
+    
+    let option: string[] = ['0', '0', '0'];
+    const {cedula,perfil,record,representante}= this.newForm.value;
+
+
+
+    if (perfil && !record && !representante) {
+      // Solo incluye el perfil
+       option[0]='1';
+       option[1]='0';
+       option[2]='0';
+    } else if (!perfil && record && !representante) {
+      // Solo incluye el record
+       option[0]='0';
+       option[1]='1';
+       option[2]='0';
+    } else if (!perfil && !record && representante) {
+      // Solo incluye el representante
+       option[0]='0';
+       option[1]='0';
+       option[2]='1';
+    } else if (perfil && record && !representante) {
+      // Incluye el perfil y el record
+       option[0]='1';
+       option[1]='1';
+       option[2]='0';
+    } else if (perfil && !record && representante) {
+      // Incluye el perfil y el representante
+       option[0]='1';
+       option[1]='0';
+       option[2]='1';
+    } else if (!perfil && record && representante) {
+      // Incluye el record y el representante
+       option[0]='0';
+       option[1]='1';
+       option[2]='1';
+    } else if (perfil && record && representante) {
+      // Incluye el perfil, el record y el representante
+       option[0]='1';
+       option[1]='1';
+       option[2]='1';
+    } else {
+      // Ninguna opción seleccionada
+       option[0]='0';
+       option[1]='0';
+       option[2]='0';
+    }
+    //console.log(typeof perfil)
+    if (cedula != null) {
+      this.estudianteService.findOne(cedula?.toString(),option[0],option[1],option[2]).subscribe(response => {
+         console.log(response,"ok")
+         //this.openSnackBar("Alumno ingresado", 'Cerrar');
+      }, error => {
+        console.error('Error en la solicitud :', error);
+        this.openSnackBar("Error buscando alumno", 'Cerrar');
+      });
+    }
+
 }
 
 

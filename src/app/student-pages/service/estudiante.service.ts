@@ -23,7 +23,7 @@ export class EstudianteService {
         });
   }
 
-  findOne(id: string,perfil:boolean,academico:boolean,representante:boolean):Observable<any>{
+  findOne(id: string,perfil:string,academico:string,representante:string):Observable<any>{
     return this.httpClient.get<any>(`${ this.baseUrl }/estudiante/${ id }?p=${perfil}&a=${academico}&r=${representante}`)
   }
 }
