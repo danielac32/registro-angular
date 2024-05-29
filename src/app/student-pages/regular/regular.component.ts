@@ -116,6 +116,7 @@ viewFrame(data:any,n:number){
         console.log(res.response.recordAcademico)
      }else if(n==3){
         const res:ResponseRepresent=data;
+        this.globalDataFrame=res;
         console.log(res.response.representante)
      }else if(n==4){
         const res:ResponsePerfilRecord=data;
@@ -141,7 +142,18 @@ volver(){
 }
 
 
-
+check(){
+  if(this.newForm.get("perfil")?.value){
+      this.newForm.get("record")?.setValue(false);
+      this.newForm.get("representante")?.setValue(false);
+  }else if(this.newForm.get("record")?.value){
+      this.newForm.get("perfil")?.setValue(false);
+      this.newForm.get("representante")?.setValue(false);
+  }else if(this.newForm.get("representante")?.value){
+      this.newForm.get("perfil")?.setValue(false);
+      this.newForm.get("record")?.setValue(false);
+  }
+}
 
 }
 

@@ -1,0 +1,72 @@
+<div class="login-form">
+
+ <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+<mat-card-title>Registro Academico</mat-card-title>
+	        
+	         <mat-card>
+	         	<mat-form-field>
+                <mat-label>Cedula</mat-label>
+                    <input matInput type="number" formControlName="cedula" required>
+                </mat-form-field>
+          	 <mat-form-field>
+			  <mat-label>Desde</mat-label>
+			  <input matInput [matDatepicker]="picker" formControlName="fechaEscolarDesde">
+			  <mat-hint>MM/DD/YYYY</mat-hint>
+			  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+			  <mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+            
+            <mat-form-field>
+			  <mat-label>Hasta</mat-label>
+			  <input matInput [matDatepicker]="picker2" formControlName="fechaEscolarHasta">
+			  <mat-hint>MM/DD/YYYY</mat-hint>
+			  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+			  <mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+            
+            <mat-form-field>
+	         <mat-label>Plantel de Origen</mat-label>
+		     <input matInput type="text" formControlName="plantelOrigen">
+		     </mat-form-field>
+
+             <mat-checkbox formControlName="repitiente">Repitiente?</mat-checkbox>
+             @if(newForm.get('repitiente')?.value==true){
+                 
+                 <mat-form-field>
+				  <mat-label>Materias Aprobadas</mat-label>
+				  <mat-select  multiple formControlName="materiasAprobadas">
+				    @for (topping of Materias; track topping) {
+				      <mat-option [value]="topping">{{topping}}</mat-option>
+				    }
+				  </mat-select>
+				</mat-form-field>
+				<mat-form-field>
+				  <mat-label>Materias Aplazadas</mat-label>
+				  <mat-select  multiple formControlName="materiasAplazadas">
+				    @for (topping of Materias; track topping) {
+				      <mat-option [value]="topping">{{topping}}</mat-option>
+				    }
+				  </mat-select>
+				</mat-form-field>
+             }
+            <mat-form-field>
+			  <mat-label>Año escolar</mat-label>
+			  <select matNativeControl required formControlName="curso">
+			    <option value="1">Primero</option>
+			    <option value="2">Segundo</option>
+			    <option value="3">Tercero</option>
+			    <option value="4">Cuarto</option>
+			    <option value="5">Quinto</option>
+			  </select>
+			</mat-form-field>
+
+            <mat-checkbox formControlName="pruebaVocacional">Prueba Vocacional?</mat-checkbox>
+
+
+			<mat-card-actions class="action-container">
+	        <button mat-raised-button type="submit">Guardar</button>
+	        </mat-card-actions>
+
+	         </mat-card>
+	     </form>
+</div>

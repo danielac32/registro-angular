@@ -7,7 +7,7 @@ import {Perfil,
         Academico,
         CrearEstudiante,
         EstudianteResponse } from '../interface/estudiante.interface'
-
+import {ResponsePerfil} from '../interface/response.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +26,9 @@ export class EstudianteService {
   findOne(id: string,perfil:string,academico:string,representante:string):Observable<any>{
     return this.httpClient.get<any>(`${ this.baseUrl }/estudiante/${ id }?p=${perfil}&a=${academico}&r=${representante}`)
   }
+  findById(id: string):Observable<ResponsePerfil>{
+    return this.httpClient.get<ResponsePerfil>(`${ this.baseUrl }/estudiante/${ id }/cedula`)
+  }
+
+
 }

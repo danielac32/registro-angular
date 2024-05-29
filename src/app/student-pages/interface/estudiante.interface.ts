@@ -5,6 +5,7 @@ export interface Options{
 }
 
 export interface Perfil{
+  id?: number;
   name: string;
   email?: string;
   isActive?: boolean;
@@ -17,6 +18,7 @@ export interface Perfil{
   alergia: boolean;
 }
 export interface Representante{
+  id?: number;
   madre?: string;
   cedulaM?: string;
   telefonoM?: string;
@@ -34,9 +36,21 @@ export interface Representante{
   nombreRepresentante?: string;
 }
 
- 
+
+
+export interface RecordData {
+    fechaEscolarDesde?: string;
+    fechaEscolarHasta?: string;
+    plantelOrigen?: string;
+    repitiente?: boolean;
+    curso?: string;
+    pruebaVocacional?: boolean;
+    materiasAprobadas?: string[]; // 'any' can be replaced with the specific type if known
+    materiasAplazadas?: string[]; // 'any' can be replaced with the specific type if known
+}
 
 export interface Academico{
+  id?: number;
   fechaEscolarDesde: string;
   fechaEscolarHasta: string;
   plantelOrigen?: string;
@@ -46,8 +60,10 @@ export interface Academico{
   materiasAplazadas?: string[];
   pruebaVocacional?: boolean; 
   tipoEstudiante?: string;
+  id_estudiante?:number;
 }
 export interface CrearEstudiante{
+id?: number;
 perfilEstudiante:Perfil;
 representante:Representante;
 academico:Academico

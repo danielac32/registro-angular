@@ -9,10 +9,11 @@
                 <mat-label>Cedula</mat-label>
                     <input matInput type="number" formControlName="cedula" required>
                 </mat-form-field>
-                <mat-checkbox formControlName="perfil">Perfil?</mat-checkbox>
-                <mat-checkbox formControlName="record">Record Academico?</mat-checkbox>
-                <mat-checkbox formControlName="representante">Representante?</mat-checkbox>
-        
+
+                <mat-checkbox formControlName="perfil" (click)="check()">Perfil?</mat-checkbox>
+                <mat-checkbox formControlName="record" (click)="check()">Record Academico?</mat-checkbox>
+                <mat-checkbox formControlName="representante" (click)="check()">Representante?</mat-checkbox>
+               
                 <mat-card-actions class="action-container">
                     <button mat-raised-button type="submit">Buscar</button>
                 </mat-card-actions>
@@ -127,8 +128,102 @@
               </p>
             }
         }
+        @else if(frameNum == 3){
+          <mat-card-title> 
+            Representantes
+          </mat-card-title>
+          <mat-card>
+          <mat-card-content>
+          <h4>Datos de la madre</h4>
+          <p>
+              Nombre:
+              {{ globalDataFrame.response.representante.madre }}
+          </p>
+          <p>
+              Cedula:
+              {{ globalDataFrame.response.representante.cedulaM }}
+          </p>
+          <p>
+              Correo:
+              {{ globalDataFrame.response.representante.emailM }}
+          </p>
+          <p>
+              Profesion:
+              {{ globalDataFrame.response.representante.profesionM }}
+          </p>
+          <p>
+              Telefono:
+              {{ globalDataFrame.response.representante.telefonoM }}
+          </p>
+          <p>
+              Vive con el estudiante:
+              @if(globalDataFrame.response.representante.viveConEstuanteM){
+                Si
+              }
+              @else{
+                No
+              }
+          </p>
+          </mat-card-content>
+        </mat-card>
+                  <br>
+        <br>
+         <mat-card>
+          <mat-card-content>
+          <h4>Datos del padre</h4>
+          <p>
+              Nombre:
+              {{ globalDataFrame.response.representante.padre }}
+          </p>
+          <p>
+              Cedula:
+              {{ globalDataFrame.response.representante.cedulaP }}
+          </p>
+          <p>
+              Correo:
+              {{ globalDataFrame.response.representante.emailP }}
+          </p>
+          <p>
+              Profesion:
+              {{ globalDataFrame.response.representante.profesionP }}
+          </p>
+          <p>
+              Telefono:
+              {{ globalDataFrame.response.representante.telefonoP }}
+          </p>
+          <p>
+              Vive con el estudiante:
+              @if(globalDataFrame.response.representante.viveConEstuanteP){
+                Si
+              }
+              @else{
+                No
+              }
+          </p>
+          </mat-card-content>
+        </mat-card>
+        <br>
+        <br>
+          <mat-card>
+          <mat-card-content>
+            <p>
+              Representante:
+              {{ globalDataFrame.response.representante.nombreRepresentante }}
+            </p>
+            <p>
+              Numero de emergencia:
+              {{ globalDataFrame.response.representante.numEmergencia }}
+            </p>
+            <p>
+              Parentesco:
+              {{ globalDataFrame.response.representante.parentesco }}
+            </p>
+          </mat-card-content>
+          </mat-card>
+        }
          <mat-card-actions class="action-container">
-                    <button mat-raised-button (click)="volver()">volver</button>
+                    <button mat-raised-button (click)="volver()">Volver</button>
+                    <button mat-raised-button >Editar</button>
          </mat-card-actions>
      </mat-card-content>
     </mat-card>  
