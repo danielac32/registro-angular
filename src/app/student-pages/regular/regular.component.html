@@ -3,7 +3,7 @@
      <mat-card>
       <mat-card-content>
           <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
-          <mat-card-title>Busqueda</mat-card-title>
+          <p>Busqueda</p>
             <mat-card>
                 <mat-form-field>
                 <mat-label>Cedula</mat-label>
@@ -24,8 +24,111 @@
   @else{
     <mat-card>
       <mat-card-content>
+        @if(frameNum == 1){
+           <mat-card-title>
+            Perfil
+        </mat-card-title>
+           <p>
+            Nombre: {{ globalDataFrame.response.perfil.name }}
+           </p>
+           <p>
+            Cedula: {{ globalDataFrame.response.perfil.cedula }}
+           </p>
+           <p>
+            Correo: {{ globalDataFrame.response.perfil.email }}
+           </p>
+           <p>
+            Telefono: {{ globalDataFrame.response.perfil.telefono }}
+           </p>
+           <p>
+            Direccion: {{ globalDataFrame.response.perfil.direccion }}
+           </p>
+           <p>
+            Activo: 
+            @if(globalDataFrame.response.perfil.isActive){
+              Si
+            }
+            @else{
+              No
+            }
+           </p>
+           <p>
+            Necesita medicinas: 
+            @if(globalDataFrame.response.perfil.medicina){
+              Si
+            }
+            @else{
+              No
+            }
+           </p>
+           <p>
+            Tine alergias: 
+            @if(globalDataFrame.response.perfil.alergia){
+              Si
+            }
+            @else{
+              No
+            }
+           </p>
+           <p>
+            Perfil creado: {{ globalDataFrame.response.perfil.createdAt | date:'yyyy-MM-dd' }}
+           </p>
+        }
+        @else if(frameNum == 2){
+          <mat-card-title> 
+            Record academico
+          </mat-card-title>
+           @for (record of globalDataFrame.response.recordAcademico; track record) {
+              <p>
+              Desde: {{ record.fechaEscolarDesde | date:'yyyy-MM-dd' }}
+             </p>
+             <p>
+              Hasta : {{ record.fechaEscolarHasta | date:'yyyy-MM-dd' }}
+             </p>
+             <p>
+              Año: {{ record.curso }}
+             </p>
+             <p>
+              Plantel de origen: {{ record.plantelOrigen }}
+             </p>
+             <p>
+              Prueba vocacional:
+              @if(record.pruebaVocacional){
+                Si
+              }
+              @else{
+                No
+              }
+              </p>
+              <p>
+              Tipo: {{ record.tipoEstudiante }}
+             </p>
+              <p>
+              Repitiente:
+              @if(record.repitiente){
+                Si
+              }
+              @else{
+                No
+              }
+              </p>
+              <p>
+              Materias aplazadas:
+              @for (ma of record.materiasAplazadas; track ma) {
+                  <p>{{ma.nombre | uppercase }}</p>
+              }
+              </p>
+
+              <p>
+              Materias aprobadas:
+              @for (mp of record.materiasAprobadas; track mp) {
+                  <p>{{mp.nombre | uppercase}}</p>
+              }
+              </p>
+            }
+        }
          <mat-card-actions class="action-container">
-                    <button mat-raised-button (click)="frameSearch=true">volver</button>
+                    <button mat-raised-button (click)="volver()">volver</button>
          </mat-card-actions>
      </mat-card-content>
     </mat-card>  

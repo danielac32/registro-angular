@@ -25,8 +25,7 @@ import {ResponsePerfil,
         ResponsePerfilRecord,
         ResponsePerfilRepresent,
         ResponseRecordRepresentante,
-        ResponseAll
-                          } from '../interface/response.interface'
+        ResponseAll} from '../interface/response.interface'
 
 
 
@@ -57,7 +56,8 @@ import {ResponsePerfil,
 export class RegularComponent implements OnInit {
 newForm: FormGroup<NewForm>;
 frameSearch:boolean=true;
-
+frameNum:number=0;
+globalDataFrame:any;
 
 constructor(private utils:Utils,private _snackBar: MatSnackBar,private estudianteService:EstudianteService) {
     this.newForm = new FormGroup<NewForm>(new NewForm());
@@ -103,13 +103,16 @@ onSubmit() {
 
 viewFrame(data:any,n:number){
     //console.log("number: ",n)
-     console.log("numero: ",n,data);
+     //console.log("numero: ",n,data);
+     this.frameNum=n;
 
      if(n==1){
         const res:ResponsePerfil=data;
+        this.globalDataFrame=res;
         console.log(res.response.perfil)
      }else if(n==2){
         const res:ResponseAcademico=data;
+        this.globalDataFrame=res;
         console.log(res.response.recordAcademico)
      }else if(n==3){
         const res:ResponseRepresent=data;
@@ -132,7 +135,10 @@ viewFrame(data:any,n:number){
      }
 }
 
-
+volver(){
+  this.frameSearch=true;
+  this.frameNum=0;
+}
 
 
 

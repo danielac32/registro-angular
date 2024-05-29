@@ -49,7 +49,7 @@ export interface academico {
     pruebaVocacional: boolean;
     repitiente: boolean;
     tipoEstudiante: string;
-  };
+  }[];
 }
 
 
