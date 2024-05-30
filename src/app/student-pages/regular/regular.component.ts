@@ -26,9 +26,12 @@ import {ResponsePerfil,
         ResponsePerfilRepresent,
         ResponseRecordRepresentante,
         ResponseAll} from '../interface/response.interface'
+import {IndexCardComponent} from '../dialog/index-card/index-card.component'
+import { MatDialog } from '@angular/material/dialog';
 
 
-
+//import {CardComponent} from '../components/card/card.component'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-regular',
@@ -48,7 +51,8 @@ import {ResponsePerfil,
       MatDatepickerModule,
       MatListModule,
       MatProgressBarModule,
-      MatMenuModule
+      MatMenuModule,
+      //CardComponent
   ],
   templateUrl: './regular.component.html',
   styleUrl: './regular.component.css'
@@ -59,7 +63,11 @@ frameSearch:boolean=true;
 frameNum:number=0;
 globalDataFrame:any;
 
-constructor(private utils:Utils,private _snackBar: MatSnackBar,private estudianteService:EstudianteService) {
+constructor(private router: Router,
+            public dialog: MatDialog,
+            private utils:Utils,
+            private _snackBar: MatSnackBar,
+            private estudianteService:EstudianteService) {
     this.newForm = new FormGroup<NewForm>(new NewForm());
 }
 
@@ -114,6 +122,16 @@ viewFrame(data:any,n:number){
         const res:ResponseAcademico=data;
         this.globalDataFrame=res;
         console.log(res.response.recordAcademico)
+        //this.router.navigate(['/estudiante/index-card']);
+        const dialogRef = this.dialog.open(IndexCardComponent, {
+            width: '54%',
+            height:'50%',
+            data: {
+              record:this.globalDataFrame.response.recordAcademico
+            }
+        });
+
+        
      }else if(n==3){
         const res:ResponseRepresent=data;
         this.globalDataFrame=res;

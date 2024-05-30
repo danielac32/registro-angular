@@ -45,9 +45,34 @@ export interface RecordData {
     repitiente?: boolean;
     curso?: string;
     pruebaVocacional?: boolean;
-    materiasAprobadas?: string[]; // 'any' can be replaced with the specific type if known
-    materiasAplazadas?: string[]; // 'any' can be replaced with the specific type if known
+    //materiasAprobadas?: string[]; // 'any' can be replaced with the specific type if known
+    //materiasAplazadas?: string[]; // 'any' can be replaced with the specific type if known
+  materiasAplazadas?: Materia[];
+  materiasAprobadas?: Materia[];
 }
+
+
+export interface Materia {
+  id: number;
+  nombre: string;
+  academicoId: number;
+}
+
+export interface AcademicoDetails {
+  createdAt?: string;
+  curso: number;
+  fechaEscolarDesde: string;
+  fechaEscolarHasta: string;
+  id: number;
+  id_estudiante: number;
+  materiasAplazadas?: Materia[];
+  materiasAprobadas?: Materia[];
+  plantelOrigen: string;
+  pruebaVocacional: boolean;
+  repitiente: boolean;
+  tipoEstudiante: string;
+}
+
 
 export interface Academico{
   id?: number;
@@ -56,8 +81,10 @@ export interface Academico{
   plantelOrigen?: string;
   repitiente?: boolean; 
   curso?: number; 
-  materiasAprobadas?: string[];
-  materiasAplazadas?: string[];
+  //materiasAprobadas?: string[];
+  //materiasAplazadas?: string[];
+  materiasAplazadas?: Materia[];
+  materiasAprobadas?: Materia[];
   pruebaVocacional?: boolean; 
   tipoEstudiante?: string;
   id_estudiante?:number;

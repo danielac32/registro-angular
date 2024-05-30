@@ -26,7 +26,7 @@ import {ResponsePerfil,
         ResponsePerfilRepresent,
         ResponseRecordRepresentante,
         ResponseAll} from '../interface/response.interface'
-
+import { Router,NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-update',
@@ -61,7 +61,7 @@ globalDataFrame:any;
 Materias: string[] = ['Fisica', 'Quimica', 'Matematica','Ingles','Castellano','Historia'];
 
 
-constructor(private utils:Utils,private _snackBar: MatSnackBar,private estudianteService:EstudianteService) {
+constructor(private router: Router,private utils:Utils,private _snackBar: MatSnackBar,private estudianteService:EstudianteService) {
     this.newForm = new FormGroup<NewForm>(new NewForm());
 }
 ngOnInit(): void {
@@ -96,6 +96,8 @@ onSubmit() {
                 materiasAplazadas: recordData.materiasAplazadas ?? []
             };
            this.saveRecord(response.id,cleanedRecordData);
+           this.openSnackBar("Alumno inscrito", 'Cerrar');
+           this.router.navigate(['/estudiante/']);
         }, error => {
           console.error('Error en la solicitud :', error);
           this.openSnackBar("Error buscando alumno", 'Cerrar');
@@ -117,7 +119,14 @@ saveRecord(id:number,recordData:RecordData){
         id_estudiante:id,
         curso: Number(recordData.curso)
     };
-    console.log(newRecord)
+    //console.log(newRecord)
+    this.estudianteService.createRecord(newRecord).subscribe(({createdAcademico}) => {
+      console.log(createdAcademico)
+        
+    }, error => {
+      console.error('Error en la solicitud :', error);
+      this.openSnackBar("Error creando record", 'Cerrar');
+    });
 }
 
 }

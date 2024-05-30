@@ -79,7 +79,16 @@
           <mat-card-title> 
             Record academico
           </mat-card-title>
-           @for (record of globalDataFrame.response.recordAcademico; track record) {
+          <!--@for (record of globalDataFrame.response.recordAcademico; track record) {
+          <div class="action-container">
+                    <app-card
+                      class="card"
+                      [record]="record"
+                    />
+          </div>
+          
+        }-->
+           <!--@for (record of globalDataFrame.response.recordAcademico; track record) {
               <p>
               Desde: {{ record.fechaEscolarDesde | date:'yyyy-MM-dd' }}
              </p>
@@ -126,7 +135,8 @@
                   <p>{{mp.nombre | uppercase}}</p>
               }
               </p>
-            }
+              <app-card/>
+            }-->
         }
         @else if(frameNum == 3){
           <mat-card-title> 
@@ -223,7 +233,9 @@
         }
          <mat-card-actions class="action-container">
                     <button mat-raised-button (click)="volver()">Volver</button>
-                    <button mat-raised-button >Editar</button>
+                    @if(frameNum !== 2){
+                      <button mat-raised-button>Editar</button>
+                    }
          </mat-card-actions>
      </mat-card-content>
     </mat-card>  

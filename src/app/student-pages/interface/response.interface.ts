@@ -52,7 +52,11 @@ export interface academico {
   }[];
 }
 
+import {Academico} from './estudiante.interface'
 
+export interface ResponseCreateRecord{
+createdAcademico:Academico;
+}
 export interface ResponseAcademico{
 	response:academico;
 }

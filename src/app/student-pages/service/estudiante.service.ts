@@ -7,7 +7,7 @@ import {Perfil,
         Academico,
         CrearEstudiante,
         EstudianteResponse } from '../interface/estudiante.interface'
-import {ResponsePerfil} from '../interface/response.interface'
+import {ResponsePerfil,ResponseCreateRecord} from '../interface/response.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,12 @@ export class EstudianteService {
     return this.httpClient.get<ResponsePerfil>(`${ this.baseUrl }/estudiante/${ id }/cedula`)
   }
 
+  createRecord(record: Academico): Observable<ResponseCreateRecord> {
+        return this.httpClient.post<ResponseCreateRecord>(`${ this.baseUrl }/estudiante/academico`, {
+          ...record
+        });
+    
+    return new Observable<ResponseCreateRecord>();
+  }
 
 }

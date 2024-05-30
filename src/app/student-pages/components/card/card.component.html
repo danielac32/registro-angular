@@ -1,0 +1,65 @@
+@if(record){
+  <mat-card>
+    <mat-card-content class="form-container">
+      <mat-card-title>Record {{record.id }}</mat-card-title>
+      
+             <p>
+              Desde: {{ record.fechaEscolarDesde | date:'yyyy-MM-dd' }}
+             </p>
+             <p>
+              Hasta : {{ record.fechaEscolarHasta | date:'yyyy-MM-dd' }}
+             </p>
+             <p>
+              Año: {{ record.curso }}
+             </p> 
+             <p>
+              Plantel de origen: {{ record.plantelOrigen }}
+             </p>
+             <p>
+              Prueba vocacional:
+              @if(record.pruebaVocacional){
+                Si
+              }
+              @else{
+                No
+              }
+              </p>
+              <p>
+              Tipo: {{ record.tipoEstudiante }}
+             </p>
+              <p>
+              Repitiente:
+              @if(record.repitiente){
+                Si
+              }
+              @else{
+                No
+              }
+              <!--</p>
+              @if(record.repitiente){
+                  <p>
+                  Materias aplazadas:
+                  @for (materia of record.materiasAplazadas; track materia) {
+                      <p>{{materia.nombre | uppercase }}</p>
+                  }
+                  </p>
+
+                  <p>
+                  Materias aprobadas:
+                  @for (materia of record.materiasAprobadas; track materia) {
+                      <p>{{materia.nombre | uppercase}}</p>
+                  }
+                  </p>
+              }-->
+    </mat-card-content>
+    <mat-card-actions class="action-container">
+      <!--<button mat-raised-button color="primary">Agregar asignaturas</button>
+      <button mat-raised-button color="primary">Agregar notas</button>-->
+       @if(record.repitiente){
+      <button matTooltip="Ver mas..." mat-raised-button color="primary"><mat-icon>visibility</mat-icon></button>
+    }
+      <button matTooltip="Notas" mat-raised-button color="primary"><mat-icon>checklist</mat-icon></button>
+      <button matTooltip="Eliminar" mat-raised-button color="primary"><mat-icon>delete</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+}
