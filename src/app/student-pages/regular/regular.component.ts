@@ -31,7 +31,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 
 //import {CardComponent} from '../components/card/card.component'
-import { Router } from '@angular/router';
+import { Router,NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-regular',
@@ -124,14 +124,29 @@ viewFrame(data:any,n:number){
         console.log(res.response.recordAcademico)
         //this.router.navigate(['/estudiante/index-card']);
         const dialogRef = this.dialog.open(IndexCardComponent, {
-            width: '54%',
-            height:'50%',
+            width: '60%',
+            height:'60%',
             data: {
               record:this.globalDataFrame.response.recordAcademico
             }
         });
-
-        
+        dialogRef.afterClosed().subscribe(response => {
+            if(response!==undefined){
+                 if(response.error){
+                    this.openSnackBar(response.status, 'Cerrar');
+                 }
+                 if(!response.data)
+                     this.openSnackBar(response.status, 'Cerrar');
+                 if(response.data){
+                     this.showNotes(response.data[0],response.data[1]);
+                 }
+            }else{
+              console.log("error: salio del formulario")
+            }
+        }, error => {
+              this.openSnackBar('error recibiendo la respuesta del dialog', 'Cerrar');
+        });
+        this.volver();
      }else if(n==3){
         const res:ResponseRepresent=data;
         this.globalDataFrame=res;
@@ -172,6 +187,24 @@ check(){
       this.newForm.get("record")?.setValue(false);
   }
 }
+
+
+ 
+
+showNotes(id_record:string,id_estudiante:string){
+        //console.log(id_record,id_estudiante);
+        const params: NavigationExtras = {
+            queryParams: {
+              id_record,
+              id_estudiante
+            }
+        };
+        this.router.navigate(['/estudiante/notas'],params);
+}
+
+
+
+
 
 }
 

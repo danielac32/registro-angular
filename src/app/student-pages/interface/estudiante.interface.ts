@@ -73,6 +73,19 @@ export interface AcademicoDetails {
   tipoEstudiante: string;
 }
 
+export interface AcademicoDetail {
+  createdAt?: string;
+  curso: number;
+  fechaEscolarDesde: string;
+  fechaEscolarHasta: string;
+  id: number;
+  id_estudiante: number;
+  plantelOrigen: string;
+  pruebaVocacional: boolean;
+  repitiente: boolean;
+  tipoEstudiante: string;
+}
+
 
 export interface Academico{
   id?: number;

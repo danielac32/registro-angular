@@ -1,21 +1,21 @@
 @if(record){
   <mat-card>
     <mat-card-content class="form-container">
-      <mat-card-title>Record {{record.id }}</mat-card-title>
+      <mat-card-title>Record {{record.id_estudiante }}</mat-card-title>
       
-             <p>
+             <h3>
               Desde: {{ record.fechaEscolarDesde | date:'yyyy-MM-dd' }}
-             </p>
-             <p>
+             </h3>
+             <h3>
               Hasta : {{ record.fechaEscolarHasta | date:'yyyy-MM-dd' }}
-             </p>
-             <p>
+             </h3>
+             <h3>
               Año: {{ record.curso }}
-             </p> 
-             <p>
+             </h3> 
+             <h3>
               Plantel de origen: {{ record.plantelOrigen }}
-             </p>
-             <p>
+             </h3>
+             <h3>
               Prueba vocacional:
               @if(record.pruebaVocacional){
                 Si
@@ -23,11 +23,11 @@
               @else{
                 No
               }
-              </p>
-              <p>
+              </h3>
+              <h3>
               Tipo: {{ record.tipoEstudiante }}
-             </p>
-              <p>
+             </h3>
+              <h3>
               Repitiente:
               @if(record.repitiente){
                 Si
@@ -35,31 +35,58 @@
               @else{
                 No
               }
-              <!--</p>
+              </h3>
+              @if(viewNotes){
               @if(record.repitiente){
-                  <p>
+                  <!--<h3>
                   Materias aplazadas:
                   @for (materia of record.materiasAplazadas; track materia) {
-                      <p>{{materia.nombre | uppercase }}</p>
+                      <h3>{{materia.nombre | uppercase }}</h3>
                   }
-                  </p>
+                  </h3>
 
-                  <p>
+                  <h3>
                   Materias aprobadas:
                   @for (materia of record.materiasAprobadas; track materia) {
-                      <p>{{materia.nombre | uppercase}}</p>
+                      <h3>{{materia.nombre | uppercase}}</h3>
                   }
-                  </p>
-              }-->
+                  </h3>-->
+
+                  <mat-list>
+                        <h3 mat-subheader>Materias aprobadas</h3>
+                        @for (materia of record.materiasAprobadas; track materia) {
+                               <mat-icon mat-list-icon>notes</mat-icon>
+                               <h4 mat-line>{{materia.nombre | uppercase}}</h4>
+                               @if (!$last) {
+                                  <mat-divider [inset]="true"></mat-divider>
+                               }
+                        } 
+                  </mat-list>
+                  <mat-divider></mat-divider>
+                  <mat-list>
+                        <h3 mat-subheader>Materias aplazadas</h3>
+                        @for (materia of record.materiasAplazadas; track materia) {
+                               <mat-icon mat-list-icon>notes</mat-icon>
+                               <h4 mat-line>{{materia.nombre | uppercase}}</h4>
+                               @if (!$last) {
+                                  <mat-divider [inset]="true"></mat-divider>
+                               }
+                        } 
+                  </mat-list>
+              }
+              }
     </mat-card-content>
     <mat-card-actions class="action-container">
       <!--<button mat-raised-button color="primary">Agregar asignaturas</button>
       <button mat-raised-button color="primary">Agregar notas</button>-->
        @if(record.repitiente){
-      <button matTooltip="Ver mas..." mat-raised-button color="primary"><mat-icon>visibility</mat-icon></button>
+      <button matTooltip="Ver mas..." (click)="viewNotes=!viewNotes"mat-raised-button color="primary"><mat-icon>visibility</mat-icon></button>
     }
-      <button matTooltip="Notas" mat-raised-button color="primary"><mat-icon>checklist</mat-icon></button>
-      <button matTooltip="Eliminar" mat-raised-button color="primary"><mat-icon>delete</mat-icon></button>
+      <!--<button matTooltip="Notas" mat-raised-button color="primary" (click)="notes(record.id,record.id_estudiante)"><mat-icon>checklist</mat-icon></button>
+
+      <button matTooltip="Añadir asignaturas" mat-raised-button color="primary" (click)="notes(record.id,record.id_estudiante)"><mat-icon>edit_note</mat-icon></button>-->
+
+      <button matTooltip="Eliminar" mat-raised-button color="primary" (click)="delete(record.id,record.id_estudiante)"><mat-icon>delete</mat-icon></button>
     </mat-card-actions>
   </mat-card>
 }

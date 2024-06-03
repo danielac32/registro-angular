@@ -21,17 +21,3 @@
   color: white ;
   white-space: pre-wrap
 }
-
-.background-image {
-     
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-    width: 100%; /* Haz que la imagen cubra todo el contenedor */
-    height: 100%;
- 
-    /* Ajusta el fondo como desees, por ejemplo: */
-    background-image: url('../../../../assets/school2.webp');
-        opacity: 0.8; /* Ajusta la opacidad de la imagen si lo deseas */
-}

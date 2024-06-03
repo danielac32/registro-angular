@@ -79,6 +79,7 @@ ngOnInit(): void {
 
 
 onSubmit() {
+   if(!this.newForm.valid) return;
 	 const {cedula,...recordData}= this.newForm.value;
 
      //console.log(this.newForm.value);
@@ -115,7 +116,7 @@ saveRecord(id:number,recordData:RecordData){
         materiasAprobadas: recordData.materiasAprobadas,
         materiasAplazadas: recordData.materiasAplazadas,
         pruebaVocacional: recordData.pruebaVocacional,
-        tipoEstudiante: 'Actualizacion',
+        tipoEstudiante: 'Actualizacion',//alumno regular
         id_estudiante:id,
         curso: Number(recordData.curso)
     };

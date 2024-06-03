@@ -1,0 +1,26 @@
+<!--<app-nav-bar/>-->
+<div>
+<div class="navigation">
+<form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+	<mat-form-field>
+		<input  matInput type="number" formControlName="cedula" placeholder="cedula">
+		</mat-form-field>
+		<button mat-raised-button matTooltip="Buscar" type="submit" color="primary" ><mat-icon>search</mat-icon></button>
+		<!--<button mat-raised-button matTooltip="Añadir asignaturas" ><mat-icon>checklist</mat-icon></button>
+<button mat-raised-button matTooltip="Calificacion" ><mat-icon>edit_note</mat-icon></button>-->
+</form>
+</div>
+
+
+@if(cardEnable){
+	<div class="container">
+    @for (record of records; track record) {
+            <app-card-notes
+                class="card"
+                [record]="record"
+             />
+        }
+    </div>
+}
+
+</div>

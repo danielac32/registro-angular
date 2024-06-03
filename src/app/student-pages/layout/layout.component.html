@@ -1,4 +1,5 @@
-<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -8,9 +9,8 @@
       <a mat-list-item [routerLink]="['/estudiante', 'nuevo-ingreso']" >Nuevo ingreso</a>
       <a mat-list-item [routerLink]="['/estudiante', 'regular']">Buscar alumno</a>
       <a mat-list-item [routerLink]="['/estudiante', 'actualizar']">Inscribir</a>
-      <a mat-list-item href="#">Notas</a>
-      <a mat-list-item href="#">Alumno</a>
-      <a mat-list-item href="#">Secciones</a>
+      <a mat-list-item [routerLink]="['/estudiante', 'notas']">Notas</a>
+      <!--<a mat-list-item href="#">Secciones</a>-->
       <a mat-list-item href="#">Salir</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -28,6 +28,8 @@
       <span>Bienvenido</span>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <router-outlet></router-outlet>
+    <div class="background-image">
+          <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

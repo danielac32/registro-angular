@@ -1,15 +1,17 @@
-<nav>
+<!--<nav>
     <div class="menu">
         <ul>
-            <li [routerLink]="['/estudiante', 'nuevo-ingreso']">Nuevo ingreso</li>
-            <li [routerLink]="['/estudiante', 'regular']">Alumno regular</li>
-            <li >Lista</li>
-            <!--<li [routerLink]="['/articles']">Lista de artículos</li>
-            <li [routerLink]="['/articles', 'detalle']">Detalle del artículo</li>
-            <li [routerLink]="['/dashboard']">Dashboard de administración</li>
-            <li [routerLink]="['/dashboard', 'calendar']">Calendario de administración</li>
-            <li [routerLink]="['/register']">Registro</li>
-            <li [routerLink]="['/login']">Login</li>-->
+            <li [routerLink]="['/estudiante', 'nuevo-ingreso']">Añadir Asignaturas</li>
+            <li [routerLink]="['/estudiante', 'regular']">Añadir Notas</li>
         </ul>
     </div>
-</nav>
+</nav>-->
+
+<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-content>
+<mat-toolbar  color="">
+    <button mat-button>Añadir Asignaturas</button>
+    <button mat-button>Añadir Notas</button>
+</mat-toolbar>
+</mat-sidenav-content>
+</mat-sidenav-container>

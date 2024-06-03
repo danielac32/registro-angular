@@ -19,17 +19,18 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+
 
 import {EstudianteService} from '../../service/estudiante.service'
-import {Academico,AcademicoDetails} from '../../interface/estudiante.interface'
+import {AcademicoDetail,Academico,AcademicoDetails} from '../../interface/estudiante.interface'
 import {MessageService} from '../../service/subjectService'
 import { Subscription } from 'rxjs';
-
-
-
+import {AsignaturaComponent} from '../../dialog/asignatura/asignatura.component'
+import {NotesComponent} from '../../dialog/notes/notes.component'
 
 @Component({
-  selector: 'app-card',
+  selector: 'app-card-notes',
   standalone: true,
   providers: [EstudianteService],
   imports: [
@@ -49,19 +50,21 @@ import { Subscription } from 'rxjs';
       MatMenuModule,
       MatIconModule,
       MatTooltipModule,
-
+      AsignaturaComponent,
+      NotesComponent
   ],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.css'
+  templateUrl: './card-notes.component.html',
+  styleUrl: './card-notes.component.css'
 })
-export class CardComponent implements OnInit {
+export class CardNotesComponent implements OnInit {
  viewNotes:boolean=false;
  
- @Input() public record?: AcademicoDetails;
+ @Input() public record?: AcademicoDetail;
  
 
 
  constructor(private router: Router,
+            public dialog: MatDialog,
             private estudianteService:EstudianteService,
             private messageService: MessageService) {
 }
@@ -69,28 +72,70 @@ export class CardComponent implements OnInit {
 
  ngOnInit(): void {
     if(this.record){
-       console.log(this.record);
+       //console.log(this.record);
     }
  }
 
 
- /*notes(id_record:number,id_estudiante:number){
-      this.messageService.sendMessage({
-           receiver:"index-card",
-           data:[id_record,id_estudiante]
-      });
- }*/
- delete(id_record:number,id_estudiante:number){
-    this.estudianteService.deleteRecord(id_record,id_estudiante).subscribe(({recordDtelete}) => {
-       console.log(recordDtelete)
-       this.messageService.sendMessage({
-              receiver:"index-card",
-              status:"Record eliminado"
-       });
-    }, error => {
-      console.error('Error en la solicitud :', error);
+materias(id:number,curso:number){
+        const dialogRef = this.dialog.open(AsignaturaComponent, {
+            width: '300px',
+            height:'200px',
+            data: {
+                id,
+                curso
+            }
+        });
+        dialogRef.afterClosed().subscribe(response => {
+            if(response!==undefined){
+                 
+            }else{
+              console.log("error: salio del formulario")
+            }
+        }, error => {
+              
+        });
+}
+notas(id:number,curso:number){
+      const dialogRef = this.dialog.open(NotesComponent, {
+            width: '70%',
+            height:'70%',
+            data: {
+                id,
+                curso,
+                read:false
+            }
+        });
+        dialogRef.afterClosed().subscribe(response => {
+            if(response!==undefined){
+                 
+            }else{
+              console.log("error: salio del formulario")
+            }
+        }, error => {
+              
+        });
+}
+ver(id:number,curso:number){
+  const dialogRef = this.dialog.open(NotesComponent, {
+            width: '70%',
+            height:'70%',
+            data: {
+                id,
+                curso,
+                read:true
+            }
+        });
+        dialogRef.afterClosed().subscribe(response => {
+            if(response!==undefined){
+                 
+            }else{
+              console.log("error: salio del formulario")
+            }
+        }, error => {
+              
+        });
+}
 
-    });
- }
 
 }

@@ -1,0 +1,25 @@
+@if(record){
+  <mat-card>
+    <mat-card-content class="form-container">
+      <mat-card-title>Record {{record.id_estudiante }}</mat-card-title>
+      
+             <h3>
+              Desde: {{ record.fechaEscolarDesde | date:'yyyy-MM-dd' }}
+             </h3>
+             <h3>
+              Hasta : {{ record.fechaEscolarHasta | date:'yyyy-MM-dd' }}
+             </h3>
+             <h3>
+              Año: {{ record.curso }}
+             </h3> 
+             
+              
+    </mat-card-content>
+    <mat-card-actions class="action-container">
+     <button mat-raised-button matTooltip="Añadir asignaturas" color="primary" (click)="materias(record.id,record.curso)"><mat-icon>checklist</mat-icon></button>
+ <!--<button mat-raised-button matTooltip="Calificacion" color="primary" (click)="notas(record.id,record.curso)"><mat-icon>edit_note</mat-icon></button>-->
+<button mat-raised-button matTooltip="Ver notas" color="primary" (click)="ver(record.id,record.curso)"><mat-icon>visibility</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+}
+

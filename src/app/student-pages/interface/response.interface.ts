@@ -61,6 +61,11 @@ export interface ResponseAcademico{
 	response:academico;
 }
 
+export interface ResponseDeleteAcademico{
+  recordDtelete:Academico;
+}
+
+
 export interface representante {
   createdAt: string;
   id: number;

@@ -23,11 +23,16 @@ import {Academico,AcademicoDetails} from '../../interface/estudiante.interface'
 import {CardComponent} from '../../components/card/card.component'
 import {MessageService} from '../../service/subjectService'
 import { Subscription } from 'rxjs';
+import {NewForm} from '../../formGroup/asignaturas.formGroup'
+import {EstudianteService} from '../../service/estudiante.service'
+import {CreateCurso,CreateAsignatura} from '../../interface/asignatura.interface'
+
 
 @Component({
-  selector: 'app-index-card',
+  selector: 'app-asignatura',
   standalone: true,
-  imports: [
+  providers: [EstudianteService],
+   imports: [
       MatFormFieldModule,
       MatInputModule,
       MatButtonModule,
@@ -44,39 +49,58 @@ import { Subscription } from 'rxjs';
       MatMenuModule,
       CardComponent
   ],
-  templateUrl: './index-card.component.html',
-  styleUrl: './index-card.component.css'
+  templateUrl: './asignatura.component.html',
+  styleUrl: './asignatura.component.css'
 })
-export class IndexCardComponent implements OnInit {
-
-private subscription: Subscription;
+export class AsignaturaComponent implements OnInit {
+Materias: string[] = ['Fisica', 'Quimica', 'Matematica','Ingles','Castellano','Historia'];
+newForm: FormGroup<NewForm>;
 constructor(
     private router: Router,
-    public dialogRef: MatDialogRef<IndexCardComponent>,
+    public dialogRef: MatDialogRef<AsignaturaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private estudianteService:EstudianteService
+
   ) {
+this.newForm = new FormGroup<NewForm>(new NewForm());
 
-
-  this.subscription = this.messageService.message$.subscribe(message => {
-        if(message.receiver==='index-card'){
-           this.dialogRef.close({
-                error:false,
-                status:message.status,
-                data:message.data
-           });
-        }
-    });
 }
-records:AcademicoDetails[]=[];
-
 
 ngOnInit(): void {
-      this.records = this.data.record;
-      console.log(this.records);
+    //console.log(this.data.curso);
+    //console.log(this.data.id); 
 }
+onSubmit() {
+  if(!this.newForm.valid) return;
+
+const{materias} = this.newForm.value;
+//console.log(materias);
+// Construir el array de asignaturas con notas en 0
+if(materias){
+    const asignaturas: CreateAsignatura[] = materias.map((materia: string) => {
+      return {
+        name: materia,
+        notas: [{ valor: 0 },{ valor: 0 },{ valor: 0 }]
+      };
+    });
+
+    const curso: CreateCurso = {
+      num:this.data.curso,
+      id_academico:this.data.id,
+      asignaturas
+    };
+
+    //console.log(curso);
+    this.estudianteService.createCurso(curso).subscribe((response) => {
+       console.log(response,"ok")
+        
+    }, error => {
+      console.error('Error en la solicitud :', error);
+    });
 }
 
 
-/*
-*/
+this.dialogRef.close();
+}
+}
